@@ -1,0 +1,249 @@
+package Lie;
+
+import java.awt.Color;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class Menu extends JFrame{
+	
+	public static void main(String[] args){
+		new Menu();
+	}
+	
+	JPanel comCardArea;
+	JPanel plaCardArea;
+	JPanel tableArea;
+	JPanel playArea;
+	
+	JButton[] comCard = new JButton[10];
+	JButton[] plaCard = new JButton[10];
+	JButton[] tabCard = new JButton[10];
+	
+	JLabel[] comLie = new JLabel[10];
+	JLabel[] plaLie = new JLabel[10];
+	
+	JButton[] lieCard = new JButton[8];
+	
+	JLabel tip1;
+	JLabel tip2;
+	JLabel tip3;
+	
+	JButton[] choice = new JButton[3];
+	JButton enter;
+	
+	Menu(){
+		
+		panelSetUp();
+		
+		otherSetUp();
+				
+		menuLayout();
+	}
+	
+	public void comCard(int[] card){
+		for(int i=0;i<10;i++){
+			if(card[i]>=0){
+				comCard[10-i].setVisible(true);
+			}else{
+				comCard[10-i].setVisible(false);
+			}
+		}		
+	}
+	
+	public void comCardBegin(int n){
+		if(n==1){ //回归
+			for(int i=0;i<10;i++){
+				if(i<5){
+					comCard[10-i].setText(i+"");
+					comCard[10-i].setBackground(Color.WHITE);
+				}else{
+					comCard[10-i].setVisible(false);
+				}
+			}
+		}
+		if(n==2){ //开始
+			for(int i=0;i<10;i++){
+				comCard[i].setBackground(Color.BLACK);
+				comCard[i].setText("");
+			}
+		}
+	}
+	
+	public void plaCard(int[] card){
+		for(int i=0;i<10;i++){
+			if(card[i]>=0){
+				comCard[i].setVisible(true);
+				comCard[i].setText(card[i]+"");
+			}else{
+				comCard[i].setVisible(false);
+			}
+		}		
+	}
+	
+	public void disLie(){
+		for(int i=0;i<10;i++){
+			comLie[i].setVisible(false);
+			plaLie[i].setVisible(false);
+		}
+	}
+	
+	public void showComLie(int n,String str){
+		comLie[n].setText(str);
+	}
+	
+	public void showPlaLie(int n,String str){
+		plaLie[n].setText(str);
+	}
+	
+	public void tip1(String str){
+		tip1.setText(str);
+	}
+	
+	public void tip2(String str){
+		tip2.setText(str);
+	}
+	
+	public void tip3(String str){
+		tip3.setText(str);
+	}
+	
+	public void table(int n){
+		if(n==1){
+			for(int i=0;i<10;i++){
+				tabCard[i].setText("");
+				tabCard[i].setVisible(false);
+				tabCard[i].setBackground(Color.BLACK);
+			}
+		}
+	}
+	public void comTable(int n){
+		tabCard[n].setVisible(true);
+		tabCard[n].setBackground(Color.black);
+	}
+	public void plaTable(int n,int act){
+		tabCard[n].setVisible(true);
+		tabCard[n].setText(act+"");
+		tabCard[n].setBackground(Color.white);
+	}
+	public void choice(int n){
+		if(n==1){
+			choice[1].setText("好人");
+			choice[2].setText("正常人");
+			choice[3].setText("骗子");
+			choice[3].setVisible(true);
+		}
+		if(n==2){
+			choice[1].setText("质疑");
+			choice[2].setText("跳过");
+			choice[3].setVisible(false);
+		}
+	}
+	
+	private void otherSetUp() {
+		for(int i=0;i<10;i++){
+			comCard[i] = new JButton(i+"");
+			comCard[i].setBounds(5+i*60,10,50,80);
+			comCard[i].setBackground(Color.WHITE);
+			comCardArea.add(comCard[i]);			
+		}
+		
+		for(int i=0;i<10;i++){
+			plaCard[i] = new JButton(i+"");
+			plaCard[i].setBounds(5+i*60,10,50,80);
+			plaCard[i].setBackground(Color.WHITE);
+			plaCardArea.add(plaCard[i]);			
+		}
+		
+		for(int i=0;i<10;i++){
+			tabCard[i] = new JButton(i+"");
+			tabCard[i].setBounds(5+i*60,60,50,80);
+			tabCard[i].setBackground(Color.BLACK);
+			tableArea.add(tabCard[i]);			
+		}
+		
+		for(int i=0;i<10;i++){
+			comLie[i] = new JLabel("这是"+i);
+			comLie[i].setBounds(10+i*60,15,50,40);
+			tableArea.add(comLie[i]);			
+		}
+		
+		for(int i=0;i<10;i++){
+			plaLie[i] = new JLabel("这是"+i);
+			plaLie[i].setBounds(10+i*60,145,50,40);
+			tableArea.add(plaLie[i]);			
+		}
+		
+		for(int i=0;i<8;i++){
+			lieCard[i] = new JButton(i+"");
+			lieCard[i].setBounds(125+i*60,60,50,30);
+			lieCard[i].setBackground(Color.WHITE);
+			playArea.add(lieCard[i]);			
+		}
+		
+		for(int i=0;i<3;i++){
+			choice[i] = new JButton(i+"");
+			choice[i].setBounds(240+i*110,15,100,30);
+			choice[i].setBackground(Color.WHITE);
+			playArea.add(choice[i]);			
+		}
+		
+		tip1 = new JLabel("你的对手是一个：");
+		tip1.setBounds(15,15,200,30);
+		tip2 = new JLabel("你宣称这张牌是：");
+		tip2.setBounds(15,60,200,30);
+		tip3 = new JLabel("你选择一个骗子作为对手");
+		tip3.setBounds(15,105,400,30);
+		playArea.add(tip1);
+		playArea.add(tip2);
+		playArea.add(tip3);
+		
+		enter = new JButton("确定");
+		enter.setBounds(500,105,80,40);
+		enter.setBackground(Color.white);
+		playArea.add(enter);
+		
+	}
+
+	private void panelSetUp(){
+
+		setLayout(null);
+		
+		comCardArea = new JPanel();
+		comCardArea.setLayout(null);
+		comCardArea.setBackground(new Color(70,163,235));
+		comCardArea.setBounds(0,0,600,100);
+		add(comCardArea);
+		
+		plaCardArea = new JPanel();
+		plaCardArea.setLayout(null);
+		plaCardArea.setBackground(new Color(70,163,235));
+		plaCardArea.setBounds(0,300,600,100);
+		add(plaCardArea);
+		
+		tableArea = new JPanel();
+		tableArea.setLayout(null);
+		tableArea.setBackground(new Color(0,227,227));
+		tableArea.setBounds(0,100,600,200);
+		add(tableArea);
+		
+		playArea = new JPanel();
+		playArea.setLayout(null);
+		playArea.setBackground(new Color(78,254,179));
+		playArea.setBounds(0,400,600,200);
+		add(playArea);
+	}
+	
+	private void menuLayout(){
+		setTitle("骗人游戏");
+		setSize(616,616);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	
+	
+
+}
